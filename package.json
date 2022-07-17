@@ -1,6 +1,6 @@
 {
-  "name": "discordbothelper",
-  "version": "1.0.0",
+  "name": "discord-bot-helper",
+  "version": "0.1.4",
   "description": "",
   "main": "index.js",
   "scripts": {

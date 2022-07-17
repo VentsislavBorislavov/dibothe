@@ -1,54 +1,36 @@
-const { Client } = require("discord.js");
+const {
+  createClient,
+  setMessageCommand,
+  startClient,
+  listenStart,
+  setIgnoreBots,
+} = require("./bot-utils/client");
 
-class DiscordBotHelper {
-  constructor() {
-    this.commands = new Map();
+const { setPrefix } = require("./bot-utils/prefix");
+
+const { setCommand, setWordListener } = require("./bot-utils/commands");
+
+function start(token, onStart) {
+  if (onStart) {
+    listenStart(onStart);
   }
-
-  static getInstance(intents) {
-    if (!this.instance) {
-      this.instance = new DiscordBotHelper(intents);
-    }
-    return this.instance;
-  }
-
-  initialize(intents) {
-    this.client = new Client({ intents });
-  }
-
-  add(command, callback) {
-    this.commands.set(command, callback);
-  }
-
-  setToken(token) {
-    this.token = token;
-  }
-
-  setPrefix(prefix) {
-    this.prefix = prefix;
-  }
-
-  start(callback) {
-    const { client, prefix, token, commands } = this;
-    client.on("messageCreate", (message) => {
-      let { content } = message;
-      if (!content.startsWith(prefix)) {
-        console.log('no content');
-        return;
-      }
-
-      content = content.slice(prefix.length);
-      content = content.split(" ");
-      if (!commands.has(content[0])) {
-        return;
-      }
-      const execute = commands.get(content[0]);
-      execute(message, content.slice(1));
-    });
-    client.login(token);
-  }
+  startClient(token);
 }
 
-const discordbothelper = DiscordBotHelper.getInstance();
+function ignoreBots(ignore) {
+  setIgnoreBots(ignore ?? true);
+}
 
-module.exports = discordbothelper;
+function botHelper(prefix, intents) {
+  createClient(intents);
+  setPrefix(prefix);
+  setMessageCommand();
+  return {
+    add: setCommand,
+    addWordListener: setWordListener,
+    ignoreBots,
+    start,
+  };
+}
+
+module.exports = botHelper;
