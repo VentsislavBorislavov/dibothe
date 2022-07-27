@@ -1,6 +1,6 @@
 {
   "name": "discord-bot-helper",
-  "version": "0.1.4",
+  "version": "0.1.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2",
-    "discord.js": "^13.8.1",
-    "node-fetch": "^3.2.6"
+    "discord.js": "^13.8.1"
   }
 }

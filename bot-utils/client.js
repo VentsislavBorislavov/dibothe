@@ -29,6 +29,8 @@ function setMessageCommand() {
       }
     }
 
+    content = message.content;
+
     const wordListeners = getWordListeners();
 
     for (let { condition, execution } of wordListeners) {
@@ -52,10 +54,15 @@ function setIgnoreBots(ignore) {
   config.ignoreBots = ignore;
 }
 
+function getClient() {
+  return client;
+}
+
 module.exports = {
   startClient,
   setMessageCommand,
   createClient,
   listenStart,
   setIgnoreBots,
+  getClient,
 };
